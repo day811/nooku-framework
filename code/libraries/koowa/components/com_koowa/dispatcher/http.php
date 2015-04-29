@@ -151,22 +151,32 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
         /**
          * We could add this to the _initialize/$config maybe
          */
-        $identifier = $this->getIdentifier()->toArray();
-        $identifier['path'] = array('dispatcher');
-        $identifier['name'] = 'router';
-        $identifier = $this->getIdentifier($identifier);
+        $identifier = $this->getIdentifier();
+
+        $str_identifier = 'com://' . $identifier->domain .'/'. $identifier->package .'.dispatcher.router';
 
         $manager = $this->getObject('manager');
 
-        $enabled = $manager->hasIdentifier($identifier) OR $manager->getClass($identifier, false);
+        $identifier = $identifier->toArray();
+        $parts = array($identifier['type'], $identifier['package']);
+        $parts = array_merge($parts, $identifier['path']);
+        $parts[] = 'Router';
+
+        $class = KStringInflector::implode($parts);
+
+        $enabled = $manager->hasIdentifier($str_identifier) OR class_exists($class);
 
         if($enabled)
         {
             $url = $this->getRequest()->getUrl();
 
-            $vars = $this->getObject($identifier)->parse($url);
+            $vars = $this->getObject($str_identifier)->parse($url);
 
-            $this->getRequest()->setQuery($vars);
+            if(count($vars)) {
+
+                $this->getRequest()->setQuery($vars);
+            }
+
         }
     }
 }

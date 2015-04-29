@@ -41,10 +41,14 @@ class ComKoowaRouterRouter extends KObject
             //$identifier = $this->getIdentifier($identifier);
             $manager = KObjectManager::getInstance();
 
-            $class = $manager->getClass($str_identifier, false);
+            $parts = array($identifier['type'], $identifier['package']);
+            $parts = array_merge($parts, $identifier['path']);
+            $parts[] = 'Router';
+
+            $class = KStringInflector::implode($parts);
 
             // has been bootstrapped OR class is defined exists
-            $enabled = $manager->isRegistered($str_identifier) OR ($class &&  $class != 'ComKoowaDispatcherRouter');
+            $enabled = $manager->hasIdentifier($str_identifier) OR (class_exists($class));
 
             if($enabled)
             {
@@ -67,6 +71,8 @@ class ComKoowaRouterRouter extends KObject
 
                 $uri->setQuery($query);
             }
+
+
 
         }
 

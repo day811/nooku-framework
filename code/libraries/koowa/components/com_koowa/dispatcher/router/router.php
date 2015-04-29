@@ -20,17 +20,22 @@ class ComKoowaDispatcherRouter extends KDispatcherRouter
     public function parse(KHttpUrlInterface $url)
     {
 
+        $vars = array();
+
         $identifier = $this->getIdentifier()->toArray();
         $identifier['path'] = array('dispatcher', 'router', 'rule');
         $identifier['name'] = 'parse';
-        $segments = explode('/', ltrim($url->getPath(), '/'));
+        $segments = explode('/', trim($url->getPath(), '/'));
 
         if($segments[0] == 'component')
         {
             $segments = array_slice($segments, 2);
         }
 
-        $vars = $this->getObject($identifier)->execute($segments);
+        if(count($segments))
+        {
+            $vars = $this->getObject($identifier)->execute($segments);
+        }
 
         return $vars;
     }
