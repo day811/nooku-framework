@@ -204,22 +204,11 @@ class PlgSystemKoowa extends JPlugin
             $manager->getObject('event.publisher')->addListener('onException', array($this, 'onErrorAfterLogout'), KEvent::PRIORITY_HIGH);
 
             /**
-             * Load ComKoowa router
+             * Load ComKoowa router build rules
              */
-
-            //if(JFactory::getApplication()->isSite())
-            {
                 $router = KObjectManager::getInstance()->getObject('com:koowa.router.router');
 
-                $app_router = JFactory::getApplication()->getRouter();
-
-                // build rules
-                $app_router->attachBuildRule(array($router, 'build'));
-
-                // parse rules
-                // doing this as part of the dispatcher
-                //$app_router->attachParseRule(array($router, 'parse'));
-            }
+                JFactory::getApplication()->getRouter()->attachBuildRule(array($router, 'build'));
 
             /**
              * Plugin Bootstrapping

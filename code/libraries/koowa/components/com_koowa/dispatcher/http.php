@@ -153,9 +153,8 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
          */
         $identifier = $this->getIdentifier();
 
+        // don't build with getIdentifier
         $str_identifier = 'com://' . $identifier->domain .'/'. $identifier->package .'.dispatcher.router';
-
-        $manager = $this->getObject('manager');
 
         $identifier = $identifier->toArray();
         $parts = array($identifier['type'], $identifier['package']);
@@ -163,6 +162,8 @@ class ComKoowaDispatcherHttp extends KDispatcherHttp
         $parts[] = 'Router';
 
         $class = KStringInflector::implode($parts);
+
+        $manager = $this->getObject('manager');
 
         $enabled = $manager->hasIdentifier($str_identifier) OR class_exists($class);
 

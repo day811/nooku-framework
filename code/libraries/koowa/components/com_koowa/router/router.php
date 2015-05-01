@@ -38,8 +38,8 @@ class ComKoowaRouterRouter extends KObject
             $identifier['path'] = array('dispatcher');
 
             $str_identifier = 'com://' . $domain .'/'. $component .'.dispatcher.router';
-            //$identifier = $this->getIdentifier($identifier);
-            $manager = KObjectManager::getInstance();
+
+            $manager = $this->getObject('manager');
 
             $parts = array($identifier['type'], $identifier['package']);
             $parts = array_merge($parts, $identifier['path']);
@@ -72,83 +72,8 @@ class ComKoowaRouterRouter extends KObject
                 $uri->setQuery($query);
             }
 
-
-
         }
 
     }
 
-    /**
-     * @param $router
-     * @param JUri $uri
-     * @return array
-     */
-//    function parse($router, JUri $uri)
-//    {
-//        $vars = array();
-//        $route = $uri->getPath();
-//
-//        $parts = explode('/',$route);
-//
-//        if($parts[0] == 'component')
-//        {
-//            $component = $parts[1];
-//            array_shift($parts);
-//            array_shift($parts);
-//        }
-//
-//        // this should be more agnostic
-//        $domain = JFactory::getApplication()->isSite() ? 'site' : 'admin';
-//
-//        $identifier = $this->getIdentifier()->toArray();
-//
-//        $identifier['domain'] = $domain;
-//        $identifier['package'] = $component;
-//        $identifier['path'] = array('dispatcher');
-//
-//        $identifier = $this->getIdentifier($identifier);
-//
-//        $manager = $this->getObject('manager');
-//        // has been bootstrapped OR class exists
-//        $enabled = $manager->hasIdentifier($identifier) OR $manager->getClass($identifier, false);
-//
-//        if ($enabled) {
-//
-//            $identifier = $this->getIdentifier($identifier)->toArray();
-//
-//            $identifier['path'] = array('dispatcher', 'router', 'rule');
-//            $identifier['name'] = 'parse';
-//
-//            $vars = $this->getObject($identifier)->execute($parts);
-//
-//        }
-//        return $vars;
-//    }
-
-//    function _buildIdentifier($component)
-//    {
-//
-//        if(strpos($component, 'com_') == 0)
-//        {
-//            $component = str_replace('com_', '', $component);
-//        }
-//
-//        // this should be more agnostic
-//        $domain = JFactory::getApplication()->isSite() ? 'site' : 'admin';
-//
-//        $identifier = $this->getIdentifier()->toArray();
-//
-//        $identifier['domain'] = $domain;
-//        $identifier['package'] = $component;
-//        $identifier['path'] = array('dispatcher');
-//
-//        $identifier = $this->getIdentifier($identifier);
-//
-//        return $identifier;
-//
-//    }
-//    function _findMenuItem($route)
-//    {
-//
-//    }
 }

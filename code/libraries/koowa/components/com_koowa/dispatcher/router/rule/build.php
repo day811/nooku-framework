@@ -16,7 +16,6 @@ class ComKoowaDispatcherRouterRuleBuild extends KObject
         // try to load an Itemid
         $package = $this->getIdentifier()->getPackage();
 
-
         if (!isset($query['Itemid'])) {
 
             $component = JComponentHelper::getComponent('com_' . $package);
@@ -33,7 +32,6 @@ class ComKoowaDispatcherRouterRuleBuild extends KObject
             }
 
         }
-
 
         // pluralizing the view
         if (isset($query['view'])) {
